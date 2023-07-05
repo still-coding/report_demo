@@ -9,16 +9,13 @@ def wallis_multiplier(i):
 
 def calculate_wallis_product(eps):
     convergence_sequence = []
-    i = 1
-    p = 1
-    while True:
-        m = wallis_multiplier(i)
-        if abs(p - m * p) < eps:
-            break
-        p *= m
-        convergence_sequence.append(p*2)
+    i, p, p_old = 1, 1.0, 0
+    while abs(p - p_old) >= eps:
+        p_old = p
+        p *= wallis_multiplier(i)
+        convergence_sequence.append(p * 2.0)
         i += 1
-    return p * 2, convergence_sequence
+    return p * 2.0, convergence_sequence
 
 
 def visualize_convergence(sequence):
